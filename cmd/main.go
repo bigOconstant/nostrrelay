@@ -19,7 +19,7 @@ type Relay struct {
 }
 
 func (r *Relay) Name() string {
-	return "Golang Relay!"
+	return "NostrWolf Relay"
 }
 
 func (r *Relay) Storage(ctx context.Context) relayer.Storage {
@@ -77,6 +77,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to create server: %v", err)
 	}
+	fmt.Println("Started server on 2700")
+
 	if err := server.Start("0.0.0.0", 2700); err != nil {
 		log.Fatalf("server terminated: %v", err)
 	}
