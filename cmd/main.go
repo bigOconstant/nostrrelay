@@ -46,9 +46,20 @@ func (r *Relay) Init() error {
 }
 
 func (r *Relay) AcceptEvent(ctx context.Context, evt *nostr.Event) bool {
+
+	blacklist := map[string]string{
+		"8b928bf75edb4ddffe2800557ffe7e5e2b07c5d5102f97d1955f921585938201": "Ai reply bot",
+	}
+
 	// block events that are too large
 	jsonb, _ := json.Marshal(evt)
 	if len(jsonb) > 10000 {
+		return false
+	}
+
+	// Block people in blocklist
+	_, ok := blacklist[evt.PubKey]
+	if ok {
 		return false
 	}
 
